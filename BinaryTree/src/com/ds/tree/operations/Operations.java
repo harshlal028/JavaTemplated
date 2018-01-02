@@ -370,6 +370,8 @@ public class Operations {
 		if (node == null) {
 			return (true);
 		} else {
+			// false if this node violates the min/max constraint
+			 if (node.data < min || node.data > max) return(false);
 			// left should be in range min...node.data
 			boolean leftOk = isBST2(node.left, min, node.data);
 			// if the left is not ok, bail out
