@@ -11,7 +11,11 @@ import java.util.List;
  * @author harsh
  *
  */
-public class DFSunidirected {
+public class DFSundirected {
+	
+	final static int WHITE = 0;
+	final static int GRAY = 1;
+	final static int BLACK = 2;
 	
 	static final int NUM_NODES = 100;
 	static int[] parent = new int[NUM_NODES];
@@ -23,7 +27,7 @@ public class DFSunidirected {
 		for(int vertex : vertices)
 		{
 			parent[vertex] = -1;
-			color[vertex] = 0;
+			color[vertex] = WHITE;
 		}
 		
 		for(int vertex : vertices)
@@ -34,23 +38,23 @@ public class DFSunidirected {
 	
 	public void DFSvisit(int vertex, HashMap<Integer, HashSet<Integer>> adjlist)
 	{
-		color[vertex] = 1;
+		color[vertex] = GRAY;
 		if(adjlist.get(vertex) != null)
 		{
 			for(int child : adjlist.get(vertex))
 			{	
-				if(color[child] == 0)
+				if(color[child] == WHITE)
 				{
 					parent[child] = vertex;
 					DFSvisit(child, adjlist);
 				}
-				else if(color[child] == 1 && parent[vertex] != child && parent[child] != vertex)
+				else if(color[child] == GRAY && parent[vertex] != child && parent[child] != vertex)
 				{
 					backEdges.add(new Tuple(vertex, child));
 				}
 			}
 		}
-		color[vertex] = 2;
+		color[vertex] = BLACK;
 	}
 	
 	List<String> getTreeEdges(int[] arr, int length)
@@ -107,7 +111,7 @@ public class DFSunidirected {
 			adjlist.put(edgeList[i][1], tmpList2);
 		}
 		
-		DFSunidirected dfs = new DFSunidirected();
+		DFSundirected dfs = new DFSundirected();
 		dfs.DFSmain(adjlist, vertexList);
 		printArray(color, 7);
 		printArray(parent, 7);

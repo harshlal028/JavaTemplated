@@ -11,6 +11,10 @@ import java.util.List;
  */
 public class DFSdirected {
 	
+	final static int WHITE = 0;
+	final static int GRAY = 1;
+	final static int BLACK = 2;
+	
 	static int time = 1;
 	static final int NUM_NODES = 100;
 	static int color[] = new int[NUM_NODES];
@@ -28,7 +32,7 @@ public class DFSdirected {
 		 */
 		for(int vertex : vertices)
 		{
-			color[vertex] = 0;
+			color[vertex] = WHITE;
 			parents[vertex] = -1;
 		}
 		
@@ -37,7 +41,7 @@ public class DFSdirected {
 		 */
 		for(int vertex : vertices)
 		{
-			if(color[vertex] == 0)
+			if(color[vertex] == WHITE)
 			{
 				DFSVisit(vertex, adjlist);
 			}
@@ -51,22 +55,22 @@ public class DFSdirected {
 	 */
 	public void DFSVisit(int vertex, HashMap<Integer,List<Integer>> adjlist)
 	{
-		color[vertex] = 1; // coloring the vertex gray here
+		color[vertex] = GRAY; // coloring the vertex gray here
 		for(int i = 0; adjlist.get(vertex)!= null && i < adjlist.get(vertex).size(); i++)
 		{
 			int child = adjlist.get(vertex).get(i);
-			if(color[child] == 0)
+			if(color[child] == WHITE)
 			{
 				parents[child] = vertex;
 				discoveryTime[child] = ++time;
 				DFSVisit(child, adjlist);
 			}
 			//Part below is done only for edge classification
-			else if(color[child] == 1) 
+			else if(color[child] == GRAY) 
 			{
 				backEdges.add(vertex+","+child);
 			}
-			else if(color[child] == 2)
+			else if(color[child] == BLACK)
 			{
 				if(discoveryTime[vertex] < discoveryTime[child])
 				{
@@ -78,7 +82,7 @@ public class DFSdirected {
 				}
 			}
 		}
-		color[vertex] = 2; //finishing exploring a vertex
+		color[vertex] = BLACK; //finishing exploring a vertex
 	}
 	
 	public static void main(String[] args) {
