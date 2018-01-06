@@ -1,4 +1,4 @@
-package com.ds.tree.operations;
+package com.ds.tree.bst.operations;
 
 public class Test {
 
