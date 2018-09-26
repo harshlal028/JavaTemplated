@@ -1,7 +1,7 @@
 package com.ds.tree.bst.operations;
 
 /**
- * Demonstration of Serialization-Deserialization of a BST
+ * Demonstration of Serialization-Deserialization of a BST (not any tree)
  * @author harsh
  *
  */
@@ -23,7 +23,7 @@ public class SerializeDeserialize {
     	return sep + root.data + sep + preorder(root.left) + preorder(root.right);
     }
 
-    // Fucntion to deserialize a tree
+    // Function to deserialize a tree
     public static Node deserialize(String data) {
     	String sep = ":";
     	String[] nodes = data.split(sep);
